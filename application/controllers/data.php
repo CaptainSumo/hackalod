@@ -76,7 +76,6 @@ SELECT ?movement ?label WHERE {
  
 }
   
-  Artists
 }
 
 QUERY_ALL_MOVEMENTS;
@@ -139,7 +138,7 @@ QUERY_RKD;
 
 
 	//Gets all movements for this artist
-	public function kunststroming($artist = '')
+	public function kunststromingSearch($artist = '')
 	{
 	    $returnData = $this->getAllMovements();
 	    print json_encode($returnData);
@@ -147,9 +146,21 @@ QUERY_RKD;
 	}
 
     //Gets all movements for this artist
+    public function kunststroming($artist = '')
+    {
+        $returnData = $this->getAllMovements();
+           //add the header here
+
+        header('Content-Type: application/json');
+        print json_encode($returnData);
+        return;
+    }
+
+    //Gets all movements for this artist
     public function kunstenaars($movement = '')
     {
         $returnData = $this->getArtistsInMovement($movement);
+        header('Content-Type: application/json');
         print json_encode($returnData);
         return;
     }
@@ -161,6 +172,7 @@ QUERY_RKD;
         $rkdId = $this->getRKDId($artistId);
 
 
+        header('Content-Type: application/json');
         print json_encode($rkdId);
         return;
     }
