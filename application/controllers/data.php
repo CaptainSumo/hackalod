@@ -87,7 +87,9 @@ QUERY_ALL_MOVEMENTS;
             if(!isset($dataOut[$movement])){
                 $dataOut[$movement] = 0;
             }
-            $dataOut[$movement]++;
+            if($dataOut[$movement] < 20) {
+                $dataOut[$movement]++;
+            }
         }
 
         return array('queries' => (array)$query, 'data' =>$dataOut);
