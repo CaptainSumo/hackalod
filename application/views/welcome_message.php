@@ -5,12 +5,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
-
+		<script src="./assets/js/d3.js" charset="utf-8"></script>
+		<script src="./assets/js/d3.layout.cloud.js"></script>
+		<script src="./assets/js/d3.wordcloud.js"></script>
+		<script src="./assets/js/example.words.js"></script>
     <link rel="stylesheet" type="text/css" href="./assets/css/site.css">
 </head>
 <body>
 
 <div id="container">
+
+	<div id='wordcloud'></div>
+
+	<script>
+		d3.wordcloud()
+			.size([800, 500])
+			.fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
+			.words(words)
+			.onwordclick(function(d, i) {
+				if (d.href) { window.location = d.href; }
+			})
+			.start();
+	</script>
+
 	<h1>Welcome to CodeIgniter!</h1>
 
 	<div id="body">
