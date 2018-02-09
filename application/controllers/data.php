@@ -11,6 +11,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Data extends CI_Controller {
 
+
+    private function  extractWikiEntityId($wikiEntity){
+        $strOut = '';
+        if(preg_match('#http://www.wikidata.org/entity/(\w+)$#', $wikiEntity, $capture)){
+            $strOut = $capture[1];
+        }
+        return $strOut;
+    }
     /**
      * @param string $query Query to run against Wikidata
      */
@@ -46,9 +54,6 @@ class Data extends CI_Controller {
     /*
      * Gets all art movements.
      * We use this when there is no artist because the query will be faster
-     *
-     *
-     *
      */
     private function getAllMovements(){
         $query = <<<QUERY_ALL_MOVEMENTS
@@ -71,7 +76,7 @@ SELECT ?movement ?label WHERE {
  
 }
   
-  
+  Artists
 }
 
 QUERY_ALL_MOVEMENTS;
@@ -93,7 +98,43 @@ QUERY_ALL_MOVEMENTS;
         }
 
         return array('queries' => (array)$query, 'data' =>$dataOut);
+    }
 
+    private function  getArtistsInMovement($movement){
+
+        $queryArtists =<<<QUERY_MOVEMENT
+SELECT *  WHERE {
+    ?artist wdt:P135 wd:%s .  #Subject part of movement
+    ?artist rdfs:label ?artistName.  #Subject label
+    ?artist wdt:P31 wd:Q5        #Subject is person
+    filter (lang(?artistName) = "nl") #Label is Dutch
+}
+QUERY_MOVEMENT;
+
+        $queryArtists = sprintf($queryArtists, $movement);
+        $allArtists = $this->queryWikiData($queryArtists);
+
+        $result = (int)($allMovements['results']['bindings']['rkdId']['value']);
+
+        return array('queries' => (array)$queryArtists, 'data' =>$allArtists);
+
+    }
+
+    private function getRKDId($artistId){
+        $queryRKDId = <<<QUERY_RKD
+SELECT *  WHERE {
+    wd:%s wdt:P650 ?rkdId
+}
+QUERY_RKD;
+        $queryRKDId = sprintf($queryRKDId, $artistId);
+
+        $rkdIdData = $this->queryWikiData($queryRKDId);
+
+        $result = (int)($rkdIdData['results']['bindings'][0]['rkdId']['value']);
+        highlight_string("<?php\n\$marker =\n" . var_export($result, true) . ";\n?>");  //FIND_ME_AGAIN
+
+
+        return array('queries' => (array)$queryRKDId, 'data' =>$result);
     }
 
 
@@ -104,4 +145,23 @@ QUERY_ALL_MOVEMENTS;
 	    print json_encode($returnData);
 	    return;
 	}
+
+    //Gets all movements for this artist
+    public function kunstenaars($movement = '')
+    {
+        $returnData = $this->getArtistsInMovement($movement);
+        print json_encode($returnData);
+        return;
+    }
+
+
+    //Gets all movements for this artist
+    public function kunstenaar($artistId = '')
+    {
+        $rkdId = $this->getRKDId($artistId);
+
+
+        print json_encode($rkdId);
+        return;
+    }
 }
