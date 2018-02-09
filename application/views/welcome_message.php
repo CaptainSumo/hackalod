@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="./assets/js/d3.js" charset="utf-8"></script>
 		<script src="./assets/js/d3.layout.cloud.js"></script>
 		<script src="./assets/js/d3.wordcloud.js"></script>
-		<script src="./assets/js/example.words.js"></script>
+        <script src=".data/kunststroming"></script>
     <link rel="stylesheet" type="text/css" href="./assets/css/site.css">
 </head>
 <body>

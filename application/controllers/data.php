@@ -82,17 +82,24 @@ QUERY_ALL_MOVEMENTS;
 
         $allMovements = $this->queryWikiData($query);
 
+
         $resultData = $allMovements['results']['bindings'];
 
         $dataOut = array();
 
+
         foreach ($resultData as $row){
-            $movement = $row['label']['value'];
-            if(!isset($dataOut[$movement])){
-                $dataOut[$movement] = 0;
+            $label = $row['label']['value'];
+            $movement = $this->extractWikiEntityId($row['movement']['value']);
+            if(!isset($dataOut[$label])){
+                $dataOut[$label] = array(   'text' => $label,
+                                            'size' => 0,
+                                            'href' => sprintf('../kunstenaars/%s', $movement),
+                                            );
+                                            
             }
-            if($dataOut[$movement] < 20) {
-                $dataOut[$movement]++;
+            if($dataOut[$label]['size'] < 20) {
+                $dataOut[$label]['size']++;
             }
         }
 
@@ -152,7 +159,9 @@ QUERY_RKD;
            //add the header here
 
         header('Content-Type: application/json');
-        print json_encode($returnData);
+        print "var words = ";
+        print json_encode(array_values($returnData['data']));
+        print ";";
         return;
     }
 
