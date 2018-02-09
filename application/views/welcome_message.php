@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
 
-    <link rel="stylesheet" type="text/css" href="/assets/css/site.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/site.css">
 </head>
 <body>
 
