@@ -22,7 +22,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			.size([1500, 1500])
 			.fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
 			.words(words)
-			.font('Oswald')
 			.onwordclick(function(d, i) {
 				if (d.href) { window.location = d.href; }
 			})
