@@ -94,7 +94,7 @@ QUERY_ALL_MOVEMENTS;
             if(!isset($dataOut[$label])){
                 $dataOut[$label] = array(   'text' => $label,
                                             'size' => 0,
-                                            'href' => sprintf('../kunstenaars/%s', $movement),
+                                            'href' => sprintf('../movement/index/%s/%s', $movement, $label),
                                             );
                                             
             }
