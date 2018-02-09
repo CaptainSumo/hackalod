@@ -98,7 +98,7 @@ QUERY_ALL_MOVEMENTS;
                                             );
                                             
             }
-            if($dataOut[$label]['size'] < 20) {
+            if($dataOut[$label]['size'] < 50) {
                 $dataOut[$label]['size']++;
             }
         }
@@ -119,10 +119,27 @@ QUERY_MOVEMENT;
 
         $queryArtists = sprintf($queryArtists, $movement);
         $allArtists = $this->queryWikiData($queryArtists);
+        $resultData = $allArtists['results']['bindings'];
 
-        $result = (int)($allMovements['results']['bindings']['rkdId']['value']);
+        $dataOut = array();
 
-        return array('queries' => (array)$queryArtists, 'data' =>$allArtists);
+
+        foreach ($resultData as $row){
+            $label = $row['artistName']['value'];
+            $code = $this->extractWikiEntityId($row['artist']['value']);
+            if(!isset($dataOut[$label])){
+                $dataOut[$label] = array(   'text' => $label,
+                    'size' => 0,
+                    'href' => sprintf('../movement/artist/%s/%s', $code, $label),
+                );
+
+            }
+            if($dataOut[$label]['size'] < 20) {
+                $dataOut[$label]['size']++;
+            }
+        }
+
+        return array('queries' => (array)$queryArtists, 'data' =>$dataOut);
 
     }
 
@@ -170,7 +187,9 @@ QUERY_RKD;
     {
         $returnData = $this->getArtistsInMovement($movement);
         header('Content-Type: application/json');
-        print json_encode($returnData);
+        print "var words = ";
+        print json_encode(array_values($returnData['data']));
+        print ";";
         return;
     }
 
