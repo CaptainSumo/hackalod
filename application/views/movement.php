@@ -18,8 +18,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<script>
 		d3.wordcloud()
-			.size([2000, 2000])
-			.fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
+			.size([1500, 1500])
+			.fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
 			.words(words)
 			.onwordclick(function(d, i) {
 				if (d.href) { window.location = d.href; }

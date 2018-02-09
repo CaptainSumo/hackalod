@@ -143,7 +143,7 @@
 
     function update() {
       var words = layout.words();
-      fontSize = d3.scale[scale]().range([10, 40]);
+      fontSize = d3.scale[scale]().range([15, 30]);
       if (words.length) {
         fontSize.domain([+words[words.length - 1].size || 1, +words[0].size]);
       }
