@@ -9,7 +9,7 @@
         scale = 'sqrt',
         fill = d3.scale.category20b(),
         layout = d3.layout.cloud(),
-        fontSize = null,
+        fontSize = 1,
         svg = null,
         vis = null,
         onwordclick = undefined;

@@ -209,7 +209,7 @@
   }
 
   function cloudRotate() {
-    return (~~(Math.random() * 6) - 3) * 30;
+    return (~~(Math.random() * 6) - 3) * 10;
   }
 
   function cloudPadding() {
@@ -345,21 +345,22 @@
   }
 
   function rectangularSpiral(size) {
-    var dy = 4,
-        dx = dy * size[0] / size[1],
-        x = 0,
-        y = 0;
-    return function(t) {
-      var sign = t < 0 ? -1 : 1;
-      // See triangular numbers: T_n = n * (n + 1) / 2.
-      switch ((Math.sqrt(1 + 4 * sign * t) - sign) & 3) {
-        case 0:  x += dx; break;
-        case 1:  y += dy; break;
-        case 2:  x -= dx; break;
-        default: y -= dy; break;
-      }
-      return [x, y];
-    };
+    // var dy = 40,
+    //     dx = dy * size[0] / size[1],
+    //     x = 0,
+    //     y = 0;
+    // return function(t) {
+    //   // var sign = t < 0 ? -1 : 1;
+    //   var sign = n * (n + 1) / 2;
+    //   // See triangular numbers: T_n = n * (n + 1) / 2.
+    //   switch ((Math.sqrt(1 + 4 * sign * t) - sign) & 3) {
+    //     case 0:  x += dx; break;
+    //     case 1:  y += dy; break;
+    //     case 2:  x -= dx; break;
+    //     default: y -= dy; break;
+    //   }
+    //   return [x, y];
+    // };
   }
 
   // TODO reuse arrays?
@@ -370,6 +371,7 @@
     return a;
   }
 
+  // var cloudRadians = Math.PI / 180,
   var cloudRadians = Math.PI / 180,
       cw = 1 << 11 >> 5,
       ch = 1 << 11,
