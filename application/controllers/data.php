@@ -94,7 +94,7 @@ QUERY_ALL_MOVEMENTS;
             if(!isset($dataOut[$label])){
                 $dataOut[$label] = array(   'text' => $label,
                                             'size' => 0,
-                                            'href' => sprintf('../movement/index/%s/%s', $movement, $label),
+                                            'href' => sprintf('/movement/index/%s/%s', $movement, $label),
                                             );
 
             }
@@ -129,8 +129,8 @@ QUERY_MOVEMENT;
             $code = $this->extractWikiEntityId($row['artist']['value']);
             if(!isset($dataOut[$label])){
                 $dataOut[$label] = array(   'text' => $label,
-                    'size' => 0,
-                    'href' => sprintf('../movement/artist/%s/%s', $code, $label),
+                    'size' => 10,
+                    'href' => sprintf('/movement/artist/%s/%s', $code, $label),
                 );
 
             }
