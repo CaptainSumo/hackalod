@@ -213,7 +213,7 @@
   }
 
   function cloudPadding() {
-    return 1;
+    return 5;
   }
 
   // Fetches a monochrome sprite bitmap for the specified text.

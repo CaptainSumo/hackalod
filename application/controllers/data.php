@@ -67,15 +67,15 @@ SELECT * WHERE {
 
   {
 SELECT ?movement ?label WHERE {
-     
+
    ?movement wdt:P31 wd:Q968159  .   #Instance of movement
    ?movement rdfs:label ?label.
    filter (lang(?label) = "nl").
 }
 }
- 
+
 }
-  
+
 }
 
 QUERY_ALL_MOVEMENTS;
@@ -96,9 +96,9 @@ QUERY_ALL_MOVEMENTS;
                                             'size' => 0,
                                             'href' => sprintf('../movement/index/%s/%s', $movement, $label),
                                             );
-                                            
+
             }
-            if($dataOut[$label]['size'] < 50) {
+            if($dataOut[$label]['size'] < 60) {
                 $dataOut[$label]['size']++;
             }
         }
