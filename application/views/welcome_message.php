@@ -10,6 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="./assets/js/d3.wordcloud.js"></script>
     <script src="./index.php/data/kunststroming"></script>
     <link rel="stylesheet" type="text/css" href="./assets/css/site.css">
+		<link href="https://fonts.googleapis.com/css?family=Oswald:500" rel="stylesheet">
 </head>
 <body>
 
@@ -18,9 +19,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<script>
 		d3.wordcloud()
-			.size([2000, 2000])
-			.fill(d3.scale.ordinal().range(["#884400", "#448800", "#888800", "#444400"]))
+			.size([1500, 1500])
+			.fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
 			.words(words)
+			.font('Oswald')
 			.onwordclick(function(d, i) {
 				if (d.href) { window.location = d.href; }
 			})

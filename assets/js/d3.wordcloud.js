@@ -9,7 +9,7 @@
         scale = 'sqrt',
         fill = d3.scale.category20b(),
         layout = d3.layout.cloud(),
-        fontSize = 1,
+        fontSize = null,
         svg = null,
         vis = null,
         onwordclick = undefined;
@@ -143,7 +143,7 @@
 
     function update() {
       var words = layout.words();
-      fontSize = d3.scale[scale]().range([10, 100]);
+      fontSize = d3.scale[scale]().range([10, 40]);
       if (words.length) {
         fontSize.domain([+words[words.length - 1].size || 1, +words[0].size]);
       }
