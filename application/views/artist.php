@@ -49,7 +49,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php }?>
 
 
-
+        <ul>
+            <?php
+                foreach($rkdImageData as $image){
+                    printf('<li><img src="%1$s" title="%2$s" alt="%2$s" />%2$s</li>', $image['url'],$image['name'] );
+                }
+            ?>
+        </ul>
 
 
 

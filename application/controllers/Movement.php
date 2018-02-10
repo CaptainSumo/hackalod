@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Movement extends CI_Controller {
     const rkdBaseUri = 'https://rkd.nl/nl/explore/artists/%s';
     const rkdApiUri = 'https://api.rkd.nl/api/record/artists/%s?format=json';
+    const rkdImagesUri = 'https://api.rkd.nl/api/search/images?filters[kunstenaar]=%s&format=json';
 
     /**
      * @param string $query Query to run against Wikidata
@@ -86,6 +87,52 @@ QUERY_RKD;
         return $artistData;
         //return array('queries' => (array)$queryRKDId, 'data' =>$artistData);
     }
+
+    private function getRKDImages($rkdName){
+
+        if($rkdName === ''){
+            return array();
+        }
+
+        //Unfortunately, there is no search for images on artist priref in RKD api
+        $apiUrl = sprintf(self::rkdImagesUri, urlencode($rkdName));
+
+        // create curl resource
+        $ch = curl_init();
+
+        // set url
+        curl_setopt($ch, CURLOPT_URL, $apiUrl );
+
+        //return the transfer as a string
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        // $output contains the output string
+        $output = curl_exec($ch);
+
+        // close curl resource to free up system resources
+        curl_close($ch);
+
+        $returnData = json_decode($output, true);
+
+        $imageData = $returnData['response']['docs'];
+
+
+        $allImages = array();
+        foreach ($imageData as $image){
+            if(strpos($image['image_url'][0],  '0d963e21-f176-d222-e878-6b5871220083') === false) {
+                $data = array(
+                    'rkdid' => $image['priref'],
+                    'url' => $image['image_url'][0],
+                    'name' => $image['benaming_kunstwerk'][0],
+                );
+                $allImages[] = $data;
+            }
+        }
+
+        highlight_string("<?php\n\$marker =\n" . var_export($allImages, true) . ";\n?>");  //FIND_ME_AGAIN
+        return $allImages;
+    }
+
     private function extractCodeFromFilename($filename){
 
         $strOut = '';
@@ -157,8 +204,8 @@ QUERY_RKD;
         $data['name'] = isset($rkdData['kunstenaarsnaam']) ? $rkdData['kunstenaarsnaam'] : '';
         $data['rkdData'] = $rkdData;
 
-        //$this->extractImages($rkdData);
-
+        $imageData = $this->getRKDImages($data['name']);
+        $data['rkdImageData'] = $imageData;
 
         $data['rkdUri'] = sprintf(self::rkdBaseUri, $rkdCode);
 
