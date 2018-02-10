@@ -310,9 +310,9 @@ SELECT * WHERE{
 QU;
 
         $data = $this->queryWikiData($query);
-
-
         $result = (@$data['results']['bindings'][0]['painting']['value']);
+
+
 
         $wikiId = 0;
         if ($result) {
@@ -322,14 +322,21 @@ QU;
         return $wikiId;
     }
 
-    public function image($rkdId){
+    public function image($rkdId)
+    {
         $imageData = $this->getRKDImageData($rkdId);
 
         $wikiData = $this->getWikiDataId($rkdId);
 
+        if ($wikiData){
 
-        $wikiEn = $this->getWikipediaPage($wikiData, 'en');
-        $wikiNl = $this->getWikipediaPage($wikiData, 'nl');
+            $wikiEn = $this->getWikipediaPage($wikiData, 'en');
+            $wikiNl = $this->getWikipediaPage($wikiData, 'nl');
+        }
+        else{
+            $wikiEn = $wikiNl = '';
+
+        }
 
         $data = array(
             'name' => $imageData['benaming_kunstwerk'][0],
