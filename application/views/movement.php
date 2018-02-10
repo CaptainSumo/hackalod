@@ -24,7 +24,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<button type="button" name="button" class="search-button button"></button>
 			  </fieldset>
 		</form>
-
+		<div class="button-container">
+				<a onclick="goBack()"><span class="goback button">< Go Back</span></a>
+				<a href="./" class="back-link"><span class="goback button">Home</span></a>
+		</div>
 	</div>
     <dl>
         <dt>Wikipedia (Nederlands)</dt>
@@ -33,7 +36,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <dd><a href="<?php print $wikiEn?>" target="_blank"><?php print $wikiEn?></a></dd>
     </dl>
 
-	<button onclick="goBack()" class="goback button">Go Back</button>
 
 	<div id='wordcloud'></div>
 

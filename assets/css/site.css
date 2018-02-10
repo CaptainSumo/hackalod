@@ -48,7 +48,7 @@
 		padding: 0;
 		position: relative;
 		width: 50%;
-		margin: 0 auto 20px;
+		margin: 0 auto;
 	}
 
 	.search-input {
@@ -88,13 +88,23 @@
     height: 30px;
 	}
 
+	.button-container {
+		margin: 15px auto;
+	  width: 205px;
+	}
+
+	.back-link {
+		text-decoration: none;
+	}
+
 	.goback {
-		margin: 0 auto;
-		float: none;
-		display: block;
-		margin-top: 15px;
-		width: 100px;
-		color: white;
+		margin: 0 5px;
+    float: none;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 5px 15px 5px 15px;
 	}
 
 	.goback-artist {

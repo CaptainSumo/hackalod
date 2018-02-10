@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 	<meta charset="utf-8">
 	<title>Kunststromingen</title>
-        <script src="./assets/js/jquery-3.3.1.js" charset="utf-8"></script>
+    <script src="./assets/js/jquery-3.3.1.js" charset="utf-8"></script>
 		<script src="./assets/js/d3.js" charset="utf-8"></script>
 		<script src="./assets/js/d3.layout.cloud.js"></script>
 		<script src="./assets/js/d3.wordcloud.js"></script>
@@ -17,16 +17,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 	<div class="header">
-
-		<!--form method="get" id="search" action="/"-->
-		    <fieldset>
-		        <legend class="visually-hidden">Zoeken door alles</legend>
-		        <input  name="trefwoord" id="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
-						<button type="button" name="button" class="search-button button" id="searchbtn"></button>
-			  </fieldset>
-        <span id="matches"></span>
-		<!--/form-->
-
+    <fieldset>
+        <legend class="visually-hidden">Zoeken door alles</legend>
+        <input  name="trefwoord" id="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
+				<button type="button" name="button" class="search-button button" id="searchbtn"></button>
+	  </fieldset>
+    <span id="matches"></span>
 	</div>
 
 	<div id='wordcloud'></div>

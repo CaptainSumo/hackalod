@@ -19,8 +19,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<?php if($rkdId) { ?>
 			<div class="header">
-				<button onclick="goBack()" class="goback-artist button">Go Back</button>
 				<h1 class="artist-name"><?php echo(urldecode($name))?></h1>
+				<div class="button-container">
+						<a onclick="goBack()"><span class="goback button">< Go Back</span></a>
+						<a href="./" class="back-link"><span class="goback button">Home</span></a>
+				</div>
 			</div>
 
 			<div class="row">
@@ -60,7 +63,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									</tr>
 							<?php }?>
 									<tr><th scope="row">Website links</th>
-									<td><a href="" target="_blank">Wiki</a> <a href="<?php echo($rkdUri);?>" target="_blank">RKD</a></td>
+										<td><a href="<?php print $wikiNl?>" target="_blank">Wikipedia (nl)</a>
+												<a href="<?php print $wikiEn?>" target="_blank">Wikipedia (en)</a>
+												<a href="<?php echo($rkdUri);?>" target="_blank">RKD</a></td>
 									</tr>
 							</tbody>
 					</table>
