@@ -130,7 +130,7 @@ QUERY_MOVEMENT;
             if(!isset($dataOut[$label])){
                 $dataOut[$label] = array(   'text' => $label,
                     'size' => 10,
-                    'href' => sprintf('/movement/artist/%s/%s', $code, $label),
+                    'href' => sprintf('/movement/artist/%s', $code),
                 );
 
             }
