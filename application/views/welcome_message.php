@@ -34,8 +34,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script>
 
         loadTagCloud = function(words) {
+            dimensions = Math.sqrt(words.length) * 160;
+            dimensions = Math.max(100, dimensions);
+            dimensions = Math.min(1200, dimensions);
             d3.wordcloud()
-                .size([1500, 1200])
+                .size([parseInt(dimensions*1.25), dimensions])
                 .fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
                 .words(words)
                 .onwordclick(function(d, i) {
@@ -43,6 +46,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 })
                 .start();
         };
+
+        updateTagCloud = function(words){
+            dimensions = Math.sqrt(words.length) * 160;
+            dimensions = Math.max(100, dimensions);
+            dimensions = Math.min(1200, dimensions);
+            //Ugly hack to reset wordcloud
+            $("#wordcloud").html('');
+            d3.wordcloud()
+                .size([parseInt(dimensions*1.25), dimensions])
+                .fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
+                .words(words)
+                .onwordclick(function(d, i) {
+                    if (d.href) { window.location = d.href; }
+                })
+                .start();
+        }
 
         function fetchData(){
 
@@ -57,8 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $('#matches ul').append('<li><a href="' + value.url + '">' + value.name + '</a></li>');
                     });
 
-
-                    loadTagCloud(data.movements);
+                    updateTagCloud(data.movements);
                 });
             }
             else{

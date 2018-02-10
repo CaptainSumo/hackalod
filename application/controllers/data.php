@@ -163,6 +163,48 @@ QUERY_ALL_MOVEMENTS;
         return array('queries' => (array)$query, 'data' =>$dataOut);
     }
 
+    private function getMovementsWithArtists($aArtists){
+        $query = <<<QUERY_MOVEMENTS_WITH_ARTIST
+SELECT * WHERE{
+  ?artist wdt:P106 wd:Q1028181.  #is painter
+  ?artist wdt:P135 ?movement.     #movement
+  ?movement rdfs:label ?label
+     filter (lang(?label) = "nl")    
+}
+LIMIT 1000
+VALUES (?artist){ %s }
+QUERY_MOVEMENTS_WITH_ARTIST;
+
+        $searchCodes = array();
+        foreach ($aArtists['artists'] as $key => $val) {
+            $searchCodes[] = sprintf("( wd:%s ) ", $key);
+        }
+
+        $query = sprintf($query, join(' ', $searchCodes) );
+
+        $matchingMovements = $this->queryWikiData($query);
+        $resultData = $matchingMovements['results']['bindings'];
+
+
+        $dataOut = array();
+
+        foreach ($resultData as $row){
+            $label = $row['label']['value'];
+            $movement = $this->extractWikiEntityId($row['movement']['value']);
+            if(!isset($dataOut[$label])){
+                $dataOut[$label] = array(   'text' => $label,
+                    'size' => 0,
+                    'href' => sprintf('/movement/index/%s/%s', $movement, $label),
+                );
+
+            }
+            if($dataOut[$label]['size'] < 60) {
+                $dataOut[$label]['size']++;
+            }
+        }
+        return array($dataOut);
+    }
+
 
     private function  getArtistsInMovement($movement){
 
@@ -233,12 +275,13 @@ QUERY_RKD;
         header('Content-Type: application/json');
         if($artist){
             $matchingArtists = $this->getMatchingArtists($artist);
-            $matchingMovements = $this->getAllMovements();
+            $matchingMovements = $this->getMovementsWithArtists($matchingArtists);
 
             print json_encode(
                 array ('artists' => array_values( $matchingArtists),
-                        'movements' => array_values($matchingMovements['data']),
-                    )
+                        'movements' => array_values($matchingMovements[0]),
+                    ),
+                    true
                 );
         }
         else {
