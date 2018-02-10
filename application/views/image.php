@@ -22,9 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<a href="/index.php" class="back-link"><span class="goback button">Home</span></a>
 				</div>
 			</div>
-
-            <h1><?php echo($name) ?></h1>
-            <img src="<?php echo($image_url); ?>"
+            <img class="image-new"src="<?php echo($image_url); ?>"
 
 	</div>
 

@@ -101,6 +101,12 @@
 	.button-container {
 		margin: 15px auto;
 	  width: 225px;
+		margin-top: 15px;
+	}
+
+	.image-new {
+		margin: 0 auto;
+		display: block;
 	}
 
 	.back-link {
