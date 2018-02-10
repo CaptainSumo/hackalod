@@ -187,7 +187,11 @@ QUERY_RKD;
             $xml = simplexml_load_string($output);
 
             $name = (string)(@$xml->entities[0]->entity[0]->sitelinks[0]->sitelink->attributes()->title);
-            $page = sprintf(self::wikiPage, $langCode, $name);
+            $page = '';
+            if($name) {
+                $page = sprintf(self::wikiPage, $langCode, $name);
+            }
+
             return $page;
         }
         catch (\Exception $e){
@@ -287,11 +291,50 @@ QUERY_RKD;
         $this->load->view('artist', $data);
     }
 
+    private function  extractWikiEntityId($wikiEntity)
+    {
+        $strOut = '';
+        if (preg_match('#http://www.wikidata.org/entity/(\w+)$#', $wikiEntity, $capture)) {
+            $strOut = $capture[1];
+        }
+        return $strOut;
+    }
+
+    public function getWikiDataId($rkdImageId)
+    {
+        $query = <<<QU
+SELECT * WHERE{
+  ?painting wdt:P350 '$rkdImageId'  #is painter
+}
+QU;
+
+        $data = $this->queryWikiData($query);
+
+
+        $result = (@$data['results']['bindings'][0]['painting']['value']);
+
+        $wikiId = 0;
+        if ($result) {
+            $wikiId = $this->extractWikiEntityId($result);
+        }
+
+        return $wikiId;
+    }
+
     public function image($rkdId){
         $imageData = $this->getRKDImageData($rkdId);
+
+        $wikiData = $this->getWikiDataId($rkdId);
+
+
+        $wikiEn = $this->getWikipediaPage($wikiData, 'en');
+        $wikiNl = $this->getWikipediaPage($wikiData, 'nl');
+
         $data = array(
             'name' => $imageData['benaming_kunstwerk'][0],
             'image_url' => sprintf('https://images.memorix.nl/rkd/thumb/650x650/%s.jpg', $imageData['picturae_images'][0]),
+            'wikiEn' => $wikiEn,
+            'wikiNl' => $wikiNl,
         );
         $this->load->view('image', $data);
 

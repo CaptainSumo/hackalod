@@ -24,6 +24,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
             <img class="image-new"src="<?php echo($image_url); ?>"
 
+            <div>
+                <?php if($wikiNl){ ?>
+                    <a href="<?php print $wikiNl?>" target="_blank">Wikipedia (nl)</a>
+                <?php } ?>
+                <?php if($wikiEn){ ?>
+                    <a href="<?php print $wikiEn?>" target="_blank">Wikipedia (en)</a>
+                <?php } ?>
+            </div>
+
 	</div>
 
 
