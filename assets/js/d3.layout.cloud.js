@@ -2,7 +2,7 @@
 // Algorithm due to Jonathan Feinberg, http://static.mrfeinberg.com/bv_ch03.pdf
 (function() {
   function cloud() {
-    var size = [256, 256],
+    var size = [1000, 1000],
         text = cloudText,
         font = cloudFont,
         fontSize = cloudFontSize,
@@ -18,7 +18,7 @@
         cloud = {};
 
     cloud.start = function() {
-      var board = zeroArray((size[0] >> 5) * size[1]),
+      var board = zeroArray((size[0] >> 50) * size[1]),
           bounds = null,
           n = words.length,
           i = -1,
