@@ -60,7 +60,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									</tr>
 							<?php }?>
 									<tr><th scope="row">Website links</th>
-									<td><a href="" target="_blank">Wiki</a> <a href="<?php echo($rkdUri);?>" target="_blank">RKD</a></td>
+									<td><a href="<?php print $wikiNl?>" target="_blank">Wikipedia (nl)</a>
+                                        <a href="<?php print $wikiEn?>" target="_blank">Wikipedia (en)</a>
+                                        <a href="<?php echo($rkdUri);?>" target="_blank">RKD</a></td>
 									</tr>
 							</tbody>
 					</table>

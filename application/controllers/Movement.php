@@ -230,7 +230,14 @@ QUERY_RKD;
 
     public function artist($artistCode)
     {
-        $data = array(  'code' => $artistCode);
+
+        $wikiEn = $this->getWikipediaPage($artistCode, 'en');
+        $wikiNl = $this->getWikipediaPage($artistCode, 'nl');
+
+        $data = array(  'code' => $artistCode,
+            'wikiEn' => $wikiEn,
+            'wikiNl' => $wikiNl,
+        );
 
         $rkdCode = $this->getRKDId($artistCode)['data'];
         $data['rkdId'] = $rkdCode;
