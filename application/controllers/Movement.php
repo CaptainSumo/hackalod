@@ -129,7 +129,6 @@ QUERY_RKD;
             }
         }
 
-        highlight_string("<?php\n\$marker =\n" . var_export($allImages, true) . ";\n?>");  //FIND_ME_AGAIN
         return $allImages;
     }
 
