@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<script>
 		d3.wordcloud()
-			// .size([1000, 1000])
+			.size([1000, 1000])
 			.fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
 			.words(words)
 			.onwordclick(function(d, i) {

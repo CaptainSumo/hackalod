@@ -6,10 +6,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<meta charset="utf-8">
 	<title>Overzicht van <?php echo($name) ?></title>
     <link rel="stylesheet" type="text/css" href="/assets/css/site.css">
+		<script src="/assets/js/main.js"></script>
 </head>
 <body>
 
-    <h1> <?php echo(urldecode($name))?></h1>
+	<div class="header">
+		<button onclick="goBack()" class="goback-artist">Go Back</button>
+		<h1 class="artist-name"> <?php echo(urldecode($name))?></h1>
+	</div>
+
+
 
     <?php if($rkdId) { ?>
         <dl>

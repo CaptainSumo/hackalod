@@ -32,7 +32,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div id='wordcloud'></div>
 
 	<script>
-        dimensions = Math.sqrt(words.length) * 100;
+        dimensions = Math.sqrt(words.length) * 160;
         dimensions = Math.max(100, dimensions);
         dimensions = Math.min(1000, dimensions);
 
