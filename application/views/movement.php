@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Kunststromingen</title>
+	<title><?php echo($name);?></title>
+        <script src="/assets/js/jquery-3.3.1.js" charset="utf-8"></script>
 		<script src="/assets/js/d3.js" charset="utf-8"></script>
 		<script src="/assets/js/d3.layout.cloud.js"></script>
 		<script src="/assets/js/d3.wordcloud.js"></script>
@@ -30,6 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 
 	<div class="extra-container">
+        <h2><?php echo($name);?></h2>
 		<a href="<?php print $wikiNl?>" target="_blank" class="extra-link"><span>Wikipedia (Nederlands)</span></a> -
 		<a href="<?php print $wikiEn?>" target="_blank" class="extra-link"><span>Wikipedia (Engels)</span></a>
 	</div>
@@ -67,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     if (d.href) { window.location = d.href; }
                 })
                 .start();
-        }
+        };
 
         function fetchData(){
 
@@ -97,7 +99,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         $( document ).ready(function() {
             $( "#searchbtn" ).click(function() {
-                fetchData();
+                sterm = $('#trefwoord').val();
+                location.href =  '/index.php?st=' + encodeURIComponent(sterm);
             });
             fetchData();
         });

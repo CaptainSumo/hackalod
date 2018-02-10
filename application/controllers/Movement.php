@@ -221,7 +221,7 @@ QUERY_RKD;
         $wikiNl = $this->getWikipediaPage($movementCode, 'nl');
 
         $data = array(  'code' => $movementCode,
-                        'name' => $movementName,
+                        'name' => ucfirst($movementName),
                         'wikiEn' => $wikiEn,
                         'wikiNl' => $wikiNl,
         );
