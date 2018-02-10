@@ -83,14 +83,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="my-gallery column" itemscope itemtype="http://schema.org/ImageGallery">
 		<?php
 				foreach($rkdImageData as $image){
-					$size = getimagesize($image['url']);
+					$size = getimagesize($image['url_large']);
 						printf('
 						<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-							<a href="%1$s" itemprop="contentUrl" data-size="%3$sx%4$s">
+							<a href="%5$s" itemprop="contentUrl" data-size="%3$sx%4$s">
 								<img src="%1$s" itemprop="thumbnail" alt="Image description" />
 							</a>
 							<figcaption itemprop="caption description">%2$s</figcaption>
-						</figure>', $image['url'],$image['name'] , $size[0], $size[1]);
+						</figure>', $image['url'],$image['name'] , $size[0], $size[1], $image['url_large']);
 				}
 		?>
 		</div>

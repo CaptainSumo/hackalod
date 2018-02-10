@@ -213,6 +213,7 @@ SELECT *  WHERE {
     ?artist wdt:P135 wd:%s .  #Subject part of movement
     ?artist rdfs:label ?artistName.  #Subject label
     ?artist wdt:P31 wd:Q5        #Subject is person
+    OPTIONAL{ ?artist wdt:P650 ?rkdId } #RKD ID
     filter (lang(?artistName) = "nl") #Label is Dutch
 }
 QUERY_MOVEMENT;
@@ -221,6 +222,7 @@ QUERY_MOVEMENT;
         $allArtists = $this->queryWikiData($queryArtists);
         $resultData = $allArtists['results']['bindings'];
 
+
         $dataOut = array();
 
 
@@ -228,15 +230,18 @@ QUERY_MOVEMENT;
             $label = $row['artistName']['value'];
             $code = $this->extractWikiEntityId($row['artist']['value']);
             if(!isset($dataOut[$label])){
-                $dataOut[$label] = array(   'text' => $label,
-                    'size' => 10,
+                $dataOut[$label] = array(   #'text' => $label,
+                    'text' => isset($row['rkdId']) ? "$label" : "$label *",
+                    'size' => isset($row['rkdId']) ? 1 : 1,
                     'href' => sprintf('/movement/artist/%s', $code),
                 );
 
             }
+            /*
             if($dataOut[$label]['size'] < 20) {
                 $dataOut[$label]['size']++;
             }
+            */
         }
 
         return array('queries' => (array)$queryArtists, 'data' =>$dataOut);
@@ -288,14 +293,6 @@ QUERY_RKD;
             $returnData = $this->getAllMovements();
             print json_encode(array_values($returnData['data']));
         }
-           //add the header here
-
-        //print json_encode($returnData);
-        /*
-        print "var words = ";
-        print json_encode(array_values($returnData['data']));
-        print ";";
-        */
         return;
     }
 
