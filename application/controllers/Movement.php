@@ -153,7 +153,7 @@ QUERY_RKD;
 
             $xml = simplexml_load_string($output);
 
-            $name = (string)($xml->entities[0]->entity[0]->sitelinks[0]->sitelink->attributes()->title);
+            $name = (string)(@$xml->entities[0]->entity[0]->sitelinks[0]->sitelink->attributes()->title);
             $page = sprintf(self::wikiPage, $langCode, $name);
             return $page;
         }
