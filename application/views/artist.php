@@ -95,8 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<?php
 				foreach($rkdImageData as $image){
 					$size = getimagesize($image['url_large']);
-						printf('<a href="www.nu.nl">dfdssf</a>
-						<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+						printf('<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 							<a href="%5$s" itemprop="contentUrl" data-size="%3$sx%4$s">
 								<img src="%1$s" itemprop="thumbnail" alt="Image description" />
 							</a>
