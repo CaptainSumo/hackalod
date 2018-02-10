@@ -153,7 +153,7 @@ QUERY_RKD;
 
             $xml = simplexml_load_string($output);
 
-            $name = (string)($xml->entities[0]->entity[0]->sitelinks[0]->sitelink->attributes()->title);
+            $name = (string)(@$xml->entities[0]->entity[0]->sitelinks[0]->sitelink->attributes()->title);
             $page = sprintf(self::wikiPage, $langCode, $name);
             return $page;
         }
@@ -230,7 +230,14 @@ QUERY_RKD;
 
     public function artist($artistCode)
     {
-        $data = array(  'code' => $artistCode);
+
+        $wikiEn = $this->getWikipediaPage($artistCode, 'en');
+        $wikiNl = $this->getWikipediaPage($artistCode, 'nl');
+
+        $data = array(  'code' => $artistCode,
+            'wikiEn' => $wikiEn,
+            'wikiNl' => $wikiNl,
+        );
 
         $rkdCode = $this->getRKDId($artistCode)['data'];
         $data['rkdId'] = $rkdCode;
