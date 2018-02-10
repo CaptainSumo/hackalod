@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Movement extends CI_Controller {
     const rkdBaseUri = 'https://rkd.nl/nl/explore/artists/%s';
+    const rkdBaseImagesUri = 'https://rkd.nl/nl/explore/images/%s';
     const rkdApiUri = 'https://api.rkd.nl/api/record/artists/%s?format=json';
     const rkdImagesUri = 'https://api.rkd.nl/api/search/images?filters[kunstenaar]=%s&format=json';
     const wikimediaQuery = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=xml&props=sitelinks&ids=%s&sitefilter=%swiki';
@@ -335,6 +336,7 @@ QU;
             'image_url' => sprintf('https://images.memorix.nl/rkd/thumb/650x650/%s.jpg', $imageData['picturae_images'][0]),
             'wikiEn' => $wikiEn,
             'wikiNl' => $wikiNl,
+            'rkdUri' => sprintf(self::rkdBaseImagesUri, $rkdId),
         );
         $this->load->view('image', $data);
 
