@@ -130,8 +130,27 @@
 	.extra-container {
 		position: absolute;
 		left: calc(50% - 150px);
-		top: 130px;
+		top: 190px;
+		z-index: 1;
 	}
+
+	.search-results {
+		width: 300px;
+    margin: 15px auto;
+	}
+
+	.search-results li {
+		list-style-type: none;
+	}
+
+	.search-results li a {
+		color: #CF7B82;
+	}
+
+	.search-results li a:hover {
+		color: #333;
+	}
+
 
 	.extra-link {
 		color: #333;

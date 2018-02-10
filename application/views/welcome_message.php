@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                 //Full search. This is slow
                 $.getJSON("./index.php/data/kunststroming/" + searchVal, function (data) {
-                    $('#matches').html('<ul></ul>');
+                    $('#matches').html('<ul class="search-results"></ul>');
 
                     $.each(data.artists[0], function (index, value) {
                         $('#matches ul').append('<li><a href="' + value.url + '">' + value.name + '</a></li>');
@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 });
             }
             else{
-                $('#matches').html('<ul></ul>');
+                $('#matches').html('<ul class="search-results"></ul>');
                 //getEverything
                 $.getJSON("./index.php/data/kunststroming", function(data){
                     loadTagCloud(data);

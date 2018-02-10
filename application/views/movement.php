@@ -28,10 +28,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<a onclick="goBack()"><span class="goback button">< Go Back</span></a>
 				<a href="/index.php" class="back-link"><span class="goback button">Home</span></a>
 		</div>
+
+				<h1><?php echo($name);?></h1>
 	</div>
 
 	<div class="extra-container">
-        <h2><?php echo($name);?></h2>
 		<a href="<?php print $wikiNl?>" target="_blank" class="extra-link"><span>Wikipedia (Nederlands)</span></a> -
 		<a href="<?php print $wikiEn?>" target="_blank" class="extra-link"><span>Wikipedia (Engels)</span></a>
 	</div>
