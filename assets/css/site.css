@@ -9,6 +9,10 @@
 		font-family: 'Roboto', sans-serif;
 	}
 
+	a {
+		outline: 0;
+	}
+
 	.my-gallery {
 	  width: 100%;
 	  float: left;
@@ -73,6 +77,12 @@
 		background-color: #CF7B82;
 		cursor: pointer;
 		position: relative;
+		transition: all .3s ease-out;
+	}
+
+	.button:hover {
+		transition: all .3s ease-out;
+		background-color: #b1767b;
 	}
 
 	.search-button::after {
@@ -115,6 +125,21 @@
 		left: 0;
 		width: 100px;
 
+	}
+
+	.extra-container {
+		position: absolute;
+		left: calc(50% - 150px);
+		top: 130px;
+	}
+
+	.extra-link {
+		color: #333;
+		text-decoration: none;
+	}
+
+	.extra-link:hover {
+		text-decoration: underline;
 	}
 
 	.artist-name {

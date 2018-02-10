@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<h1 class="artist-name"><?php echo(urldecode($name))?></h1>
 				<div class="button-container">
 						<a onclick="goBack()"><span class="goback button">< Go Back</span></a>
-						<a href="./" class="back-link"><span class="goback button">Home</span></a>
+						<a href="/index.php" class="back-link"><span class="goback button">Home</span></a>
 				</div>
 			</div>
 
@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<tr><th scope="row">Sterfplaats</th>
 									<td><?php echo(  is_array($rkdData['sterfplaats']) ? $rkdData['sterfplaats'][0] : $rkdData['sterfplaats']) ; ?></td>
 									</tr>
-								<?php }?>
+							<?php }?>
 							<?php if(isset($rkdData['sterfdatum_begin'])) {?>
 									<tr><th scope="row">Sterfdatum</th>
 									<td><?php echo(  is_array($rkdData['sterfdatum_begin']) ? $rkdData['sterfdatum_begin'][0] : $rkdData['sterfdatum_begin']) ; ?></td>

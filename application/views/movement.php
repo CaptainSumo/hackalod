@@ -16,28 +16,93 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 	<div class="header">
+		<fieldset>
+        <legend class="visually-hidden">Zoeken door alles</legend>
+        <input  name="trefwoord" id="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
+				<button type="button" name="button" class="search-button button" id="searchbtn"></button>
+	  </fieldset>
+    <span id="matches"></span>
 
-		<form method="get" id="search" action="/">
-		    <fieldset>
-		        <legend class="visually-hidden">Zoeken door alles</legend>
-		        <input name="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
-						<button type="button" name="button" class="search-button button"></button>
-			  </fieldset>
-		</form>
 		<div class="button-container">
 				<a onclick="goBack()"><span class="goback button">< Go Back</span></a>
-				<a href="./" class="back-link"><span class="goback button">Home</span></a>
+				<a href="/index.php" class="back-link"><span class="goback button">Home</span></a>
 		</div>
 	</div>
-    <dl>
-        <dt>Wikipedia (Nederlands)</dt>
-        <dd><a href="<?php print $wikiNl?>" target="_blank"><?php print $wikiNl?></a></dd>
-        <dt>Wikipedia (Engels)</dt>
-        <dd><a href="<?php print $wikiEn?>" target="_blank"><?php print $wikiEn?></a></dd>
-    </dl>
 
+	<div class="extra-container">
+		<a href="<?php print $wikiNl?>" target="_blank" class="extra-link"><span>Wikipedia (Nederlands)</span></a> -
+		<a href="<?php print $wikiEn?>" target="_blank" class="extra-link"><span>Wikipedia (Engels)</span></a>
+	</div>
 
 	<div id='wordcloud'></div>
+
+
+	<script>
+
+        loadTagCloud = function(words) {
+            dimensions = Math.sqrt(words.length) * 160;
+            dimensions = Math.max(100, dimensions);
+            dimensions = Math.min(1200, dimensions);
+            d3.wordcloud()
+                .size([parseInt(dimensions*1.25), dimensions])
+                .fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
+                .words(words)
+                .onwordclick(function(d, i) {
+                    if (d.href) { window.location = d.href; }
+                })
+                .start();
+        };
+
+        updateTagCloud = function(words){
+            dimensions = Math.sqrt(words.length) * 160;
+            dimensions = Math.max(100, dimensions);
+            dimensions = Math.min(1200, dimensions);
+            //Ugly hack to reset wordcloud
+            $("#wordcloud").html('');
+            d3.wordcloud()
+                .size([parseInt(dimensions*1.25), dimensions])
+                .fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
+                .words(words)
+                .onwordclick(function(d, i) {
+                    if (d.href) { window.location = d.href; }
+                })
+                .start();
+        }
+
+        function fetchData(){
+
+            searchVal = $('#trefwoord').val();
+            if(searchVal) {
+
+                //Full search. This is slow
+                $.getJSON("./index.php/data/kunststroming/" + searchVal, function (data) {
+                    $('#matches').html('<ul></ul>');
+
+                    $.each(data.artists[0], function (index, value) {
+                        $('#matches ul').append('<li><a href="' + value.url + '">' + value.name + '</a></li>');
+                    });
+
+                    updateTagCloud(data.movements);
+                });
+            }
+            else{
+                $('#matches').html('<ul></ul>');
+                //getEverything
+                $.getJSON("./index.php/data/kunststroming", function(data){
+                    loadTagCloud(data);
+                });
+            }
+
+        }
+
+        $( document ).ready(function() {
+            $( "#searchbtn" ).click(function() {
+                fetchData();
+            });
+            fetchData();
+        });
+
+	</script>
 
 	<script>
         dimensions = Math.sqrt(words.length) * 160;
