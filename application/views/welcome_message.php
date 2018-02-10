@@ -19,7 +19,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div class="header">
     <fieldset>
         <legend class="visually-hidden">Zoeken door alles</legend>
-        <input  name="trefwoord" id="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
+        <input  name="trefwoord" id="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen"
+            value="<?php echo($sterm); ?>" >
 				<button type="button" name="button" class="search-button button" id="searchbtn"></button>
 	  </fieldset>
     <span id="matches"></span>

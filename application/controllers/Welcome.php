@@ -20,6 +20,8 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+	    $st = $this->input->get('st', '');
+	    $data = array('sterm' => $st);
+		$this->load->view('welcome_message', $data);
 	}
 }
