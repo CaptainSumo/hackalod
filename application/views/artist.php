@@ -67,6 +67,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												<a href="<?php print $wikiEn?>" target="_blank">Wikipedia (en)</a>
 												<a href="<?php echo($rkdUri);?>" target="_blank">RKD</a></td>
 									</tr>
+
+                            <?php if(count($rkdImageData) > 0){?>
+                                <tr><th scope="row">Bekende afbeelding</th>
+                                    <td>
+                                            <?php foreach($rkdImageData as $image){
+                                                printf('<a href="%s">%s</a><br/>', $image['image_page'], $image['name'] );
+                                            }?>
+
+
+                                </tr>
+                            <?php }?>
 							</tbody>
 					</table>
 				</div>
@@ -90,7 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<img src="%1$s" itemprop="thumbnail" alt="Image description" />
 							</a>
 							<figcaption itemprop="caption description">%2$s</figcaption>
-						</figure>', $image['url'],$image['name'] , $size[0], $size[1], $image['url_large']);
+						</figure>', $image['url'],$image['name'] , $size[0], $size[1], $image['url_large'], $image['image_page']);
 				}
 		?>
 		</div>

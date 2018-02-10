@@ -7,6 +7,7 @@ class Movement extends CI_Controller {
     const rkdImagesUri = 'https://api.rkd.nl/api/search/images?filters[kunstenaar]=%s&format=json';
     const wikimediaQuery = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=xml&props=sitelinks&ids=%s&sitefilter=%swiki';
     const wikiPage = 'https://%s.wikipedia.org/wiki/%s';
+    const rkdApiImageUri = 'https://api.rkd.nl/api/record/images/%s?format=json';
 
     /**
      * @param string $query Query to run against Wikidata
@@ -90,6 +91,36 @@ QUERY_RKD;
         //return array('queries' => (array)$queryRKDId, 'data' =>$artistData);
     }
 
+    private function getRKDImageData($rkdCode){
+
+        if($rkdCode === 0){
+            return array();
+        }
+
+        $apiUrl = sprintf(self::rkdApiImageUri, $rkdCode);
+
+        // create curl resource
+        $ch = curl_init();
+
+        // set url
+        curl_setopt($ch, CURLOPT_URL, $apiUrl );
+
+        //return the transfer as a string
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        // $output contains the output string
+        $output = curl_exec($ch);
+
+        // close curl resource to free up system resources
+        curl_close($ch);
+
+        $returnData = json_decode($output, true);
+
+        $imageData = $returnData['response']['docs'][0];
+        return $imageData;
+        //return array('queries' => (array)$queryRKDId, 'data' =>$artistData);
+    }
+
     private function getRKDImages($rkdName){
 
         if($rkdName === ''){
@@ -127,6 +158,7 @@ QUERY_RKD;
                     'url' => $image['image_url'][0],
                     'url_large' => preg_replace('#300x300#', '650x650', $image['image_url'][0]),
                     'name' => $image['benaming_kunstwerk'][0],
+                    'image_page' => sprintf('/index.php/movement/image/%s', $image['priref']),
                 );
                 $allImages[] = $data;
             }
@@ -253,5 +285,15 @@ QUERY_RKD;
         $data['rkdUri'] = sprintf(self::rkdBaseUri, $rkdCode);
 
         $this->load->view('artist', $data);
+    }
+
+    public function image($rkdId){
+        $imageData = $this->getRKDImageData($rkdId);
+        $data = array(
+            'name' => $imageData['benaming_kunstwerk'][0],
+            'image_url' => sprintf('https://images.memorix.nl/rkd/thumb/650x650/%s.jpg', $imageData['picturae_images'][0]),
+        );
+        $this->load->view('image', $data);
+
     }
 }
