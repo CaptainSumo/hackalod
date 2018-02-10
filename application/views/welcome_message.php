@@ -21,8 +21,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<!--form method="get" id="search" action="/"-->
 		    <fieldset>
 		        <legend class="visually-hidden">Zoeken door alles</legend>
-		        <input id="trefwoord" name="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
-						<button type="button" name="button" class="search-button" id="searchbtn"></button>
+		        <input  name="trefwoord" id="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
+						<button type="button" name="button" class="search-button button" id="searchbtn"></button>
 			  </fieldset>
         <span id="matches"></span>
 		<!--/form-->
@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         loadTagCloud = function(words) {
             d3.wordcloud()
-                .size([1000, 1000])
+                .size([1500, 1200])
                 .fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
                 .words(words)
                 .onwordclick(function(d, i) {
@@ -78,16 +78,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             fetchData();
         });
 
-        /*
-		d3.wordcloud()
-			.size([1000, 1000])
-			.fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
-			.words(words)
-			.onwordclick(function(d, i) {
-				if (d.href) { window.location = d.href; }
-			})
-			.start();
-			*/
 	</script>
 
 

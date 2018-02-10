@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    <fieldset>
 		        <legend class="visually-hidden">Zoeken door alles</legend>
 		        <input name="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
-						<button type="button" name="button" class="search-button"></button>
+						<button type="button" name="button" class="search-button button"></button>
 			  </fieldset>
 		</form>
 
