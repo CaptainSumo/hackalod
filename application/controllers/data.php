@@ -57,26 +57,17 @@ class Data extends CI_Controller {
      */
     private function getAllMovements(){
         $query = <<<QUERY_ALL_MOVEMENTS
-SELECT * WHERE {
-  SELECT *   WHERE {
-  ?s wdt:P135 ?movement.    #Subject in movement
-  ?s wdt:P106 wd:Q1028181.  #Subject is painter
-  ?s wdt:P31 wd:Q5.         #Subject is person
-  ?s rdfs:label ?person.
-   filter (lang(?person) = "nl").
-
-  {
-SELECT ?movement ?label WHERE {
-
-   ?movement wdt:P31 wd:Q968159  .   #Instance of movement
-   ?movement rdfs:label ?label.
-   filter (lang(?label) = "nl").
+SELECT *   WHERE {
+    ?s wdt:P135 ?movement.    #Subject in movement
+    ?s wdt:P106 wd:Q1028181.  #Subject is painter
+    ?s wdt:P31 wd:Q5.         #Subject is person
+    ?s rdfs:label ?person.
+    filter (lang(?person) = "nl").
+    ?movement wdt:P31 ?movementCategory  .   #Instance of movement
+    ?movement rdfs:label ?label.
+    filter (lang(?label) = "nl").
 }
-}
-
-}
-
-}
+VALUES (?movementCategory) { (wd:Q3326867) (wd:Q968159) }  #Instance of movement or painting movement
 
 QUERY_ALL_MOVEMENTS;
 
