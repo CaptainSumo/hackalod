@@ -29,32 +29,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<table summary="Each row names a Nordic country and specifies its total area and land area, in square kilometers">
 							<caption><?php echo(urldecode($name))?> - ID: <span><?php echo(urldecode($rkdId))?></caption>
 							<tbody>
-									<tr><th scope="col">Country</th><th scope="col">Land area</th></tr>
-									<tr><th scope="row">Denmark</th>
-									<td>43,070</td>
-									</tr>
-									<?php if(isset($rkdData['nationaliteit'])) {?>
+							<?php if(isset($rkdData['nationaliteit'])) {?>
 									<tr><th scope="row">Nationaliteit</th>
 									<td><?php echo(  is_array($rkdData['nationaliteit']) ? $rkdData['nationaliteit'][0] : $rkdData['nationaliteit']) ; ?></td>
 									</tr>
-									<?php }?>
-									<tr><th scope="row">Nationaliteit</th>
-									<td></td>
+							<?php }?>
+							<?php if(isset($rkdData['geslacht'])) {?>
+									<tr><th scope="row">Geslacht</th>
+									<td><?php echo(  $rkdData['geslacht'] == 'm' ? 'Man': 'Vrouw') ?></td>
 									</tr>
-									<tr><th scope="row">Nationaliteit</th>
-									<td></td>
+							<?php }?>
+							<?php if(isset($rkdData['geboorteplaats'])) {?>
+									<tr><th scope="row">Geboorteplaats</th>
+									<td><?php echo(  is_array($rkdData['geboorteplaats']) ? $rkdData['geboorteplaats'][0] : $rkdData['geboorteplaats']) ; ?></td>
 									</tr>
-									<tr><th scope="row">Nationaliteit</th>
-									<td></td>
+							<?php }?>
+							<?php if(isset($rkdData['geboortedatum_begin'])) {?>
+									<tr><th scope="row">Geboortedatum</th>
+									<td><?php echo(  is_array($rkdData['geboortedatum_begin']) ? $rkdData['geboortedatum_begin'][0] : $rkdData['geboortedatum_begin']) ; ?></td>
 									</tr>
-
+							<?php }?>
+							<?php if(isset($rkdData['sterfplaats'])) {?>
+									<tr><th scope="row">Sterfplaats</th>
+									<td><?php echo(  is_array($rkdData['sterfplaats']) ? $rkdData['sterfplaats'][0] : $rkdData['sterfplaats']) ; ?></td>
+									</tr>
+								<?php }?>
+							<?php if(isset($rkdData['sterfdatum_begin'])) {?>
+									<tr><th scope="row">Sterfdatum</th>
+									<td><?php echo(  is_array($rkdData['sterfdatum_begin']) ? $rkdData['sterfdatum_begin'][0] : $rkdData['sterfdatum_begin']) ; ?></td>
+									</tr>
+							<?php }?>
 									<tr><th scope="row">Website links</th>
 									<td><a href="" target="_blank">Wiki</a> <a href="<?php echo($rkdUri);?>" target="_blank">RKD</a></td>
 									</tr>
 							</tbody>
 					</table>
 				</div>
-
 
 
 
@@ -74,13 +84,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<a href="%1$s" itemprop="contentUrl" data-size="%3$sx%4$s">
 								<img src="%1$s" itemprop="thumbnail" alt="Image description" />
 							</a>
-							<span>%2$s</span>
 							<figcaption itemprop="caption description">%2$s</figcaption>
 						</figure>', $image['url'],$image['name'] , $size[0], $size[1]);
 				}
 		?>
 		</div>
 	</div>
+
+	<!-- <span>%2$s</span> -->
 
 	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 

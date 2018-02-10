@@ -183,6 +183,7 @@
 
 table {
 	background: #fff;
+	margin-top: 8px;
 	margin-bottom: 20px;
 	border: none;
 	-webkit-box-shadow: 0 3px 0 #777;
@@ -216,7 +217,7 @@ td {
 
 .column {
   flex: 25%;
-  max-width: 20%;
+  max-width: 30%;
   padding: 0 4px;
 }
 
@@ -237,4 +238,8 @@ td {
     flex: 100%;
     max-width: 100%;
   }
+}
+
+.pswp__caption__center {
+  font-size: 20px !important;
 }
