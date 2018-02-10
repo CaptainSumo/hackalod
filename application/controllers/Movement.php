@@ -125,6 +125,7 @@ QUERY_RKD;
                 $data = array(
                     'rkdid' => $image['priref'],
                     'url' => $image['image_url'][0],
+                    'url_large' => preg_replace('#300x300#', '650x650', $image['image_url'][0]),
                     'name' => $image['benaming_kunstwerk'][0],
                 );
                 $allImages[] = $data;
@@ -193,7 +194,6 @@ QUERY_RKD;
                             if($imageCode){
                                 if(isset($rkdData['afbeeldingsnummer_rkd_picturae_mapping'][$imageCode])){
                                     $rkdUid = $rkdData['afbeeldingsnummer_rkd_picturae_mapping'][$imageCode];
-                                    print "$rkdUid<br>";
                                     break;
                                 }
                             }
@@ -221,7 +221,7 @@ QUERY_RKD;
         $wikiNl = $this->getWikipediaPage($movementCode, 'nl');
 
         $data = array(  'code' => $movementCode,
-                        'name' => ucfirst($movementName),
+                        'name' => ucfirst(urldecode($movementName)),
                         'wikiEn' => $wikiEn,
                         'wikiNl' => $wikiNl,
         );
