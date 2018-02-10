@@ -15,24 +15,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
 
-			<div class="header">
-				<h1 class="artist-name"><?php echo(urldecode($name))?></h1>
-				<div class="button-container">
-						<a onclick="goBack()"><span class="goback button">< Go Back</span></a>
-						<a href="/index.php" class="back-link"><span class="goback button">Home</span></a>
-				</div>
+		<div class="header">
+			<h1 class="artist-name"><?php echo(urldecode($name))?></h1>
+			<div class="button-container">
+					<a onclick="goBack()"><span class="goback button">< Go Back</span></a>
+					<a href="/index.php" class="back-link"><span class="goback button">Home</span></a>
 			</div>
-            <img class="image-new"src="<?php echo($image_url); ?>"
+		</div>
 
-            <div >
-                <?php if($wikiNl){ ?>
-                    <a href="<?php print $wikiNl?>" target="_blank">Wikipedia (nl)</a><br/>
-                <?php } ?>
-                <?php if($wikiEn){ ?>
-                    <a href="<?php print $wikiEn?>" target="_blank">Wikipedia (en)</a><br/>
-                <?php } ?>
-                <a href="<?php print $rkdUri?>" target="_blank">RKD Pagina</a>
-            </div>
+		<div class="detail-image-container">
+				<?php if($wikiNl){ ?>
+						<a href="<?php print $wikiNl?>" target="_blank">Wiki Nederland</a>
+				<?php } ?>
+				<span>-</span>
+				<?php if($wikiEn){ ?>
+						<a href="<?php print $wikiEn?>" target="_blank">Wiki Engels</a>
+				<?php } ?>
+				<span>-</span>
+						<a href="<?php print $rkdUri?>" target="_blank">RKD Pagina</a>
+		</div>
+    <img class="image-new"src="<?php echo($image_url); ?>">
+
 
 	</div>
 
