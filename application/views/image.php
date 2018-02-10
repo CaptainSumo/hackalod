@@ -25,10 +25,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		<div class="detail-image-container">
 				<?php if($wikiNl){ ?>
-						<a href="<?php print $wikiNl?>" target="_blank">Wiki Nederland</a><span>-</span>
+						<a href="<?php print $wikiNl?>" target="_blank">Wiki Nederland</a><span> -</span>
 				<?php } ?>
 				<?php if($wikiEn){ ?>
-						<a href="<?php print $wikiEn?>" target="_blank">Wiki Engels</a><span>-</span>
+						<a href="<?php print $wikiEn?>" target="_blank">Wiki Engels</a><span> -</span>
 				<?php } ?>
 						<a href="<?php print $rkdUri?>" target="_blank">RKD Pagina</a>
 		</div>
