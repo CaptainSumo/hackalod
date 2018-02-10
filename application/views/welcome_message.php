@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		    <fieldset>
 		        <legend class="visually-hidden">Zoeken door alles</legend>
 		        <input name="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
-						<button type="button" name="button" class="search-button"></button>
+						<button type="button" name="button" class="search-button button"></button>
 			  </fieldset>
 		</form>
 
@@ -30,8 +30,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div id='wordcloud'></div>
 
 	<script>
+
 		d3.wordcloud()
-			.size([1000, 1000])
+			.size([1500, 1200])
 			.fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
 			.words(words)
 			.onwordclick(function(d, i) {
