@@ -5,6 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 	<meta charset="utf-8">
 	<title>Kunststromingen</title>
+        <script src="./assets/js/jquery-3.3.1.js" charset="utf-8"></script>
 		<script src="./assets/js/d3.js" charset="utf-8"></script>
 		<script src="./assets/js/d3.layout.cloud.js"></script>
 		<script src="./assets/js/d3.wordcloud.js"></script>
@@ -17,19 +18,67 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<div class="header">
 
-		<form method="get" id="search" action="/">
+		<!--form method="get" id="search" action="/"-->
 		    <fieldset>
 		        <legend class="visually-hidden">Zoeken door alles</legend>
-		        <input name="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
-						<button type="button" name="button" class="search-button"></button>
+		        <input id="trefwoord" name="trefwoord" title="Zoeken" type="text" class="search-input" placeholder="Zoeken door alle kunststromingen">
+						<button type="button" name="button" class="search-button" id="searchbtn"></button>
 			  </fieldset>
-		</form>
+        <span id="matches"></span>
+		<!--/form-->
 
 	</div>
 
 	<div id='wordcloud'></div>
 
 	<script>
+
+        loadTagCloud = function(words) {
+            d3.wordcloud()
+                .size([1000, 1000])
+                .fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
+                .words(words)
+                .onwordclick(function(d, i) {
+                    if (d.href) { window.location = d.href; }
+                })
+                .start();
+        };
+
+        function fetchData(){
+
+            searchVal = $('#trefwoord').val();
+            if(searchVal) {
+
+                //Full search. This is slow
+                $.getJSON("./index.php/data/kunststroming/" + searchVal, function (data) {
+                    $('#matches').html('<ul></ul>');
+
+                    $.each(data.artists[0], function (index, value) {
+                        $('#matches ul').append('<li><a href="' + value.url + '">' + value.name + '</a></li>');
+                    });
+
+
+                    loadTagCloud(data.movements);
+                });
+            }
+            else{
+                $('#matches').html('<ul></ul>');
+                //getEverything
+                $.getJSON("./index.php/data/kunststroming", function(data){
+                    loadTagCloud(data);
+                });
+            }
+
+        }
+
+        $( document ).ready(function() {
+            $( "#searchbtn" ).click(function() {
+                fetchData();
+            });
+            fetchData();
+        });
+
+        /*
 		d3.wordcloud()
 			.size([1000, 1000])
 			.fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
@@ -38,6 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				if (d.href) { window.location = d.href; }
 			})
 			.start();
+			*/
 	</script>
 
 

@@ -97,6 +97,73 @@ QUERY_ALL_MOVEMENTS;
         return array('queries' => (array)$query, 'data' =>$dataOut);
     }
 
+    /*
+     * Gets all art movements.
+     * We use this when there is no artist because the query will be faster
+     */
+    private function getMatchingArtists($searchTerm){
+        $query = <<<QUERY_ALL_MOVEMENTS
+SELECT *  WHERE {
+{
+    ?artist wdt:P106 wd:Q1028181.  #Subject is painter
+    ?artist wdt:P31 wd:Q5.         #Subject is person
+    ?artist rdfs:label ?artistName.  #Subject label
+    filter (lang(?artistName) = "nl") #Label is Dutch
+    FILTER(LCASE(STR(?artistName)) = '%1\$s')
+}
+  UNION
+  {
+        ?artist wdt:P106 wd:Q1028181.  #Subject is painter
+        ?artist wdt:P31 wd:Q5.         #Subject is person
+        ?artist rdfs:label ?artistName.  #Subject label
+        ?artist skos:altLabel ?name
+        filter (lang(?artistName) = "nl") #Label is Dutch
+        FILTER(LCASE(STR(?name)) = '%1\$s')
+
+   }
+}
+
+QUERY_ALL_MOVEMENTS;
+        $query = sprintf($query, strtolower($searchTerm) );
+
+        $matchingArtists = $this->queryWikiData($query);
+        $resultData = $matchingArtists['results']['bindings'];
+        $allMatchingArtists = array();
+
+        foreach ($resultData as $row){
+            $code = $this->extractWikiEntityId($row['artist']['value']);
+            $data = array(
+                'code' => $code,
+                'name' => $row['artistName']['value'],
+                'url' => sprintf('/movement/artist/%s', $code),
+            );
+            $allMatchingArtists[$code]  = $data;
+        }
+
+
+        return array('artists' => $allMatchingArtists);
+        $dataOut = array();
+
+
+        foreach ($resultData as $row){
+            $label = $row['label']['value'];
+            $movement = $this->extractWikiEntityId($row['movement']['value']);
+            if(!isset($dataOut[$label])){
+                $dataOut[$label] = array(   'text' => $label,
+                    'size' => 0,
+                    'href' => sprintf('/movement/index/%s/%s', $movement, $label),
+                );
+
+            }
+            if($dataOut[$label]['size'] < 60) {
+                $dataOut[$label]['size']++;
+            }
+        }
+
+        return array('queries' => (array)$query, 'data' =>$dataOut);
+    }
+
+
     private function  getArtistsInMovement($movement){
 
         $queryArtists =<<<QUERY_MOVEMENT
@@ -148,7 +215,7 @@ QUERY_RKD;
         highlight_string("<?php\n\$marker =\n" . var_export($result, true) . ";\n?>");  //FIND_ME_AGAIN
 
 
-        return array('queries' => (array)$queryRKDId, 'data' =>$result);
+        return array('queries' => (array)$queryRKDId, 'data' =>array_values($result));
     }
 
 
@@ -163,13 +230,29 @@ QUERY_RKD;
     //Gets all movements for this artist
     public function kunststroming($artist = '')
     {
-        $returnData = $this->getAllMovements();
+        header('Content-Type: application/json');
+        if($artist){
+            $matchingArtists = $this->getMatchingArtists($artist);
+            $matchingMovements = $this->getAllMovements();
+
+            print json_encode(
+                array ('artists' => array_values( $matchingArtists),
+                        'movements' => array_values($matchingMovements['data']),
+                    )
+                );
+        }
+        else {
+            $returnData = $this->getAllMovements();
+            print json_encode(array_values($returnData['data']));
+        }
            //add the header here
 
-        header('Content-Type: application/json');
+        //print json_encode($returnData);
+        /*
         print "var words = ";
         print json_encode(array_values($returnData['data']));
         print ";";
+        */
         return;
     }
 
