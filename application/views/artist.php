@@ -44,22 +44,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<?php }?>
 							<?php if(isset($rkdData['geboorteplaats'])) {?>
 									<tr><th scope="row">Geboorteplaats</th>
-									<td><?php echo(  is_array($rkdData['geboorteplaats']) ? $rkdData['geboorteplaats'][0] : $rkdData['geboorteplaats']) ; ?></td>
+									<td><?php echo(  is_array($rkdData['geboorteplaats']) ? @$rkdData['geboorteplaats'][0] : $rkdData['geboorteplaats']) ; ?></td>
 									</tr>
 							<?php }?>
 							<?php if(isset($rkdData['geboortedatum_begin'])) {?>
 									<tr><th scope="row">Geboortedatum</th>
-									<td><?php echo(  is_array($rkdData['geboortedatum_begin']) ? $rkdData['geboortedatum_begin'][0] : $rkdData['geboortedatum_begin']) ; ?></td>
+									<td><?php echo(  is_array($rkdData['geboortedatum_begin']) ? @$rkdData['geboortedatum_begin'][0] : $rkdData['geboortedatum_begin']) ; ?></td>
 									</tr>
 							<?php }?>
 							<?php if(isset($rkdData['sterfplaats'])) {?>
 									<tr><th scope="row">Sterfplaats</th>
-									<td><?php echo(  is_array($rkdData['sterfplaats']) ? $rkdData['sterfplaats'][0] : $rkdData['sterfplaats']) ; ?></td>
+									<td><?php echo(  is_array($rkdData['sterfplaats']) ? @$rkdData['sterfplaats'][0] : $rkdData['sterfplaats']) ; ?></td>
 									</tr>
 								<?php }?>
 							<?php if(isset($rkdData['sterfdatum_begin'])) {?>
 									<tr><th scope="row">Sterfdatum</th>
-									<td><?php echo(  is_array($rkdData['sterfdatum_begin']) ? $rkdData['sterfdatum_begin'][0] : $rkdData['sterfdatum_begin']) ; ?></td>
+									<td><?php echo(  is_array($rkdData['sterfdatum_begin']) ? @$rkdData['sterfdatum_begin'][0] : $rkdData['sterfdatum_begin']) ; ?></td>
 									</tr>
 							<?php }?>
 									<tr><th scope="row">Website links</th>
