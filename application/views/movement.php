@@ -32,8 +32,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<div id='wordcloud'></div>
 
 	<script>
+        dimensions = Math.sqrt(words.length) * 100;
+        dimensions = Math.max(100, dimensions);
+        dimensions = Math.min(1000, dimensions);
+
+
 		d3.wordcloud()
-			.size([750, 750])
+			.size([dimensions, dimensions])
 			.fill(d3.scale.ordinal().range(["#B9CA64", "#DB7681", "#BF313D", "#E0D18A", "#4D4D4D"]))
 			.words(words)
 			.onwordclick(function(d, i) {
