@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <dd><a href="<?php print $wikiEn?>" target="_blank"><?php print $wikiEn?></a></dd>
     </dl>
 
-	<button onclick="goBack()" class="goback">Go Back</button>
+	<button onclick="goBack()" class="goback button">Go Back</button>
 
 	<div id='wordcloud'></div>
 
