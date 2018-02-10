@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	</div>
 
-	<button onclick="goBack()" class="goback">Go Back</button>
+	<button onclick="goBack()" class="goback button">Go Back</button>
 
 	<div id='wordcloud'></div>
 

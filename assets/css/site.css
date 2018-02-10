@@ -6,6 +6,25 @@
  		background-color: #fff;
 		margin: 20px 40px;
 		color: #4F5155;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.my-gallery {
+	  width: 100%;
+	  float: left;
+	}
+	.my-gallery img {
+	  width: 100%;
+	  height: auto;
+	}
+	.my-gallery figure {
+	  display: block;
+	  float: left;
+	  margin: 0 5px 5px 0;
+	  width: 150px;
+	}
+	.my-gallery figcaption {
+	  display: none;
 	}
 
 	text {
@@ -154,3 +173,68 @@
 		border: 1px solid #D0D0D0;
 		box-shadow: 0 0 8px #D0D0D0;
 	}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+	justify-content: center;
+}
+
+table {
+	background: #fff;
+	margin-bottom: 20px;
+	border: none;
+	-webkit-box-shadow: 0 3px 0 #777;
+	box-shadow: 0 3px 0 #777;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+caption {
+  background-color: #bbb;
+	padding: .5rem .625rem .625rem;
+	font-weight: 700;
+}
+
+tbody {
+  border: 1px solid #f1f1f1;
+  background-color: #fefefe;
+}
+
+th {
+    padding: .3125rem .625rem;
+}
+
+tr:nth-of-type(2n) {
+    background-color: #eee;
+}
+
+td {
+	text-align: center;
+}
+
+.column {
+  flex: 25%;
+  max-width: 20%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+}
+
+@media (max-width: 800px) {
+  .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
