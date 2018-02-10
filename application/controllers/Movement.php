@@ -5,6 +5,8 @@ class Movement extends CI_Controller {
     const rkdBaseUri = 'https://rkd.nl/nl/explore/artists/%s';
     const rkdApiUri = 'https://api.rkd.nl/api/record/artists/%s?format=json';
     const rkdImagesUri = 'https://api.rkd.nl/api/search/images?filters[kunstenaar]=%s&format=json';
+    const wikimediaQuery = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=xml&props=sitelinks&ids=%s&sitefilter=%swiki';
+    const wikiPage = 'https://%s.wikipedia.org/wiki/%s';
 
     /**
      * @param string $query Query to run against Wikidata
@@ -132,6 +134,39 @@ QUERY_RKD;
         return $allImages;
     }
 
+    private  function getWikipediaPage($id, $langCode){
+
+        $query = sprintf(self::wikimediaQuery, $id, $langCode);
+
+        try {
+            // create curl resource
+            $ch = curl_init();
+
+            // set url
+            curl_setopt($ch, CURLOPT_URL, $query);
+
+            //return the transfer as a string
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+            // $output contains the output string
+            $output = curl_exec($ch);
+
+            $xml = simplexml_load_string($output);
+
+            $name = (string)($xml->entities[0]->entity[0]->sitelinks[0]->sitelink->attributes()->title);
+            $page = sprintf(self::wikiPage, $langCode, $name);
+            return $page;
+        }
+        catch (\Exception $e){
+            //Let's just assume the page isn't there today
+            return '';
+
+        }
+
+    }
+
+
+
     private function extractCodeFromFilename($filename){
 
         $strOut = '';
@@ -181,19 +216,21 @@ QUERY_RKD;
 
 	public function index($movementCode, $movementName)
 	{
-	    $data = array(  'code' => $movementCode,
-                        'name' => $movementName);
 
+	    $wikiEn = $this->getWikipediaPage($movementCode, 'en');
+        $wikiNl = $this->getWikipediaPage($movementCode, 'nl');
 
+        $data = array(  'code' => $movementCode,
+                        'name' => $movementName,
+                        'wikiEn' => $wikiEn,
+                        'wikiNl' => $wikiNl,
+        );
 		$this->load->view('movement', $data);
 	}
 
     public function artist($artistCode)
     {
         $data = array(  'code' => $artistCode);
-
-
-
 
         $rkdCode = $this->getRKDId($artistCode)['data'];
         $data['rkdId'] = $rkdCode;

@@ -26,6 +26,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</form>
 
 	</div>
+    <dl>
+        <dt>Wikipedia (Nederlands)</dt>
+        <dd><a href="<?php print $wikiNl?>" target="_blank"><?php print $wikiNl?></a></dd>
+        <dt>Wikipedia (Engels)</dt>
+        <dd><a href="<?php print $wikiEn?>" target="_blank"><?php print $wikiEn?></a></dd>
+    </dl>
 
 	<button onclick="goBack()" class="goback">Go Back</button>
 
